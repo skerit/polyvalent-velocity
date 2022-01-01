@@ -1,0 +1,38 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.kyori.indra' version '2.0.6'
+    id 'net.kyori.indra.publishing' version '2.0.6'
+    id 'net.kyori.blossom' version '1.3.0'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+}
+
+group = 'rocks.blackblock.velocity.polyvalent'
+version = '0.1.0'
+description = 'Allow Polyvalent to work behind Velocity'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url 'https://repo.velocitypowered.com/snapshots/'
+    }
+
+}
+
+dependencies {
+    compileOnly 'com.velocitypowered:velocity-api:3.1.0-SNAPSHOT'
+    annotationProcessor 'com.velocitypowered:velocity-api:3.1.0-SNAPSHOT'
+}
+
+blossom {
+    replaceToken '@ID@', name.toLowerCase()
+    replaceToken '@NAME@', name
+    replaceToken '@VERSION@', version
+    replaceToken '@DESCRIPTION@', description
+}
+
+build.dependsOn shadowJar
+
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
